@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhai.mapper.OrderMapper">
+    <resultMap id="BaserResultMap" type="com.zhai.domain.Order">
+        <id column="id" property="id"/>
+        <result column="deliveryName" property="deliveryName"/>
+        <result column="deliveryStreet" property="deliveryStreet"/>
+        <result column="deliveryCity" property="deliveryCity"/>
+        <result column="deliveryState" property="deliveryState"/>
+        <result column="deliveryZip" property="deliveryZip"/>
+        <result column="ccNumber" property="ccNumber"/>
+        <result column="ccExpiration" property="ccExpiration"/>
+        <result column="ccCVV" property="ccCVV"/>
+         <result column="placedAt" property="placedAt"/>
+    </resultMap>
+
+    
+</mapper>
