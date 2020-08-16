@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.zhai.domain.Ingredient;
 import com.zhai.domain.Ingredient.Type;
@@ -71,12 +72,12 @@ public class DesignTacoController {
 		}
 
 		 String username = principal.getName();
-		    User user = UserService.findByUsername(username);
+		    User user = UserService.getOne(Wrappers.<User>query().eq("username", username));
 		    model.addAttribute("user", user);
 		return "design";
 	}
 
-	// provided by 'aexiaosong'
+	
 	private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
 		return ingredients.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
 	}
@@ -94,8 +95,8 @@ public class DesignTacoController {
 
 		log.info("Processing design: " + design);
 		
-		Taco saved = TacoService.save(design);
-		order.addDesign(saved);
+		TacoService.save(design);
+		order.addDesign(design);
 		return "redirect:/orders/current";
 	}
 }

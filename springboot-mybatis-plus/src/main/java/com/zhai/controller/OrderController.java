@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhai.domain.Order;
 import com.zhai.domain.User;
@@ -78,7 +79,7 @@ public class OrderController {
 		  order.setUser(user);
 		    
 		  OrderService.save(order);
-		    sessionStatus.setComplete();
+		   sessionStatus.setComplete();
 	      log.info("Order submitted: " + order);
 	      return "redirect:/";
 	  }
@@ -86,9 +87,10 @@ public class OrderController {
 	  @GetMapping
 	  public String ordersForUser(
 	      @AuthenticationPrincipal User user, Model model) {
-		  Page pageable = new Page<>(0, 10) ;
+		  //当前页数，每页返回条数
+		  Page<Order> page = new Page<Order>(1,2);
 	      model.addAttribute("orders",
-	    		  OrderService.getOrderPage());
+	    		  OrderService.page(page));
 	      
 	      return "orderList";
 	  }

@@ -5,6 +5,6 @@ import com.zhai.domain.User;
 
 public interface UserService extends IService<User> {
 
-	User findByUsername(String username);
+//	User findByUsername(String username);
 
 }
