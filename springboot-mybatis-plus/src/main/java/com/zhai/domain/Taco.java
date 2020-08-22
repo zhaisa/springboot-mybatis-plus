@@ -1,5 +1,6 @@
 package com.zhai.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,20 +13,25 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsAutoIncrement;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsKey;
+import com.zhai.domain.Ingredient.Type;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @TableName(value="taco")
-public class Taco {
+public class Taco extends Model<Taco>{
 	
-	@IsKey // actable主键注解
-	@IsAutoIncrement // 自增
-	@Column
+//	@IsKey // actable主键注解
+//	@IsAutoIncrement // 自增
+//	@Column
 	@TableId(value = "id", type = IdType.AUTO)
 	private Long id;
 
@@ -43,15 +49,20 @@ public class Taco {
 	 * 可以有很多 Ingredient，一个 Ingredient 可以是很多 Taco 的一部分。
 	 */
 
-	@Size(min = 1, message = "You must choose at least 1 ingredient")
+//	@Size(min = 1, message = "You must choose at least 1 ingredient")
+	@TableField(exist = false)
 	private List<Ingredient> ingredients;
+
 
 	/*
 	 * 
 	 * 还有一个新方法 createdAt()，它用 @PrePersist 注解。将使用它将 createdAt 属性设置为保存 Taco
 	 * 之前的当前日期和时间。
 	 */
-
+//	public void  ingredients(List<Ingredient> ingredients) {
+//		this.ingredients=ingredients;
+//		
+//	}
 	public void createdAt() {
 		this.createdAt = new Date();
 	}

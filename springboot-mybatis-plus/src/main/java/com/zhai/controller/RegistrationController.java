@@ -1,5 +1,6 @@
 package com.zhai.controller;
 
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -7,14 +8,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.zhai.security.RegistrationForm;
+import com.zhai.mapper.UserMapper;
 import com.zhai.sevice.UserService;
+
+import lombok.extern.slf4j.Slf4j;
+
+import com.zhai.domain.RegistrationForm;
+import com.zhai.domain.User;
+@Slf4j
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
 	@Autowired
-	UserService UserService;
+	UserMapper UserMapper;
+
 //	private UserRepository userRepo;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 //	@Autowired
@@ -31,7 +40,10 @@ public class RegistrationController {
 
 	@PostMapping
 	public String processRegistration(RegistrationForm form) {
-		UserService.save(form.toUser(passwordEncoder));
+		log.info("取值- - -   -  -   - >"+"进入方法");
+		User user=form.toUser(passwordEncoder);
+		log.info("取值- - -   -  -   - >"+user);
+		UserMapper.insert(user);
 		return "redirect:/login";
 
 	}

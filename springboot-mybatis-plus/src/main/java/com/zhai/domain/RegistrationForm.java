@@ -1,4 +1,4 @@
-package com.zhai.security;
+package com.zhai.domain;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

@@ -29,11 +29,17 @@ UserMapper UserMapper;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		QueryWrapper<User> querywrapper=Wrappers.<User>query();
-		User user=UserMapper.selectOne(querywrapper);
-		return user;
+		querywrapper.eq("username",username );
+		User user = UserMapper.selectOne(querywrapper);
+		if(user!=null) {
+			return user;}
+			throw new UsernameNotFoundException("User"+username+"not found");
+		}
+
+		
 	}
 
 	
-	}
+	
 
 

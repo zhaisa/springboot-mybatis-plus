@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhai.mapper.TacoIngredientsMapper">
+    <resultMap id="BaserResultMap" type="com.zhai.domain.TacoIngredients">
+        <id column="taco_id" property="taco_id"/>
+        <result column="ingredients_id" property="ingredients_id"/>
+       
+    </resultMap>
+<!-- <insert id="save">
+<foreach collection="">
+insert into taco_ingredients(taco_id,igredients_id) values(#{taco_id},#{igredients_id});
+</foreach>
+
+</insert> -->
+</mapper>

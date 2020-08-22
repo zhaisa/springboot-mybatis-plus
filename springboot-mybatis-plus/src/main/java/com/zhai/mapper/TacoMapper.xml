@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhai.mapper.TacoMapper">
-    <resultMap id="BaserResultMap" type="com.zhai.domain.Taco">
-        <id column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="createdAt" property="createdAt"/>
-    
-    </resultMap>
+	<resultMap id="BaserResultMap" type="com.zhai.domain.Taco">
+		<id column="id" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+		<result column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR" />
+		<result column="createdAt" property="createdAt" />
 
-    <select id="findAll" resultMap="BaserResultMap" resultType="com.zhai.domain.Taco">
-        SELECT *
-        FROM taco
-    </select>
-    <insert id="insertTaco" >
-    insert into taco(name,createdAt) values(#{name},#{createdAt})
-    </insert>
-    <insert id="inserttacoingredient">
-    insert into taco_ingredients(taco_id,ingredients_id) values(#{taco_id},#{ingredients_id})
-    </insert>
-    
+	</resultMap>
+	<resultMap type="com.zhai.domain.Ingredient"
+		id="savetacoingredient">
+		<result column="taco_id" property="taco_id" />
+		<result column="ingredient_id" property="ingredient_id" />
+	</resultMap>
+
+	<insert id="savetacoingredient">
+		insert into taco_ingredients(taco_id,ingredients_id)
+		values(#{taco_id},#{ingredients_id})
+	</insert>
+
 </mapper>

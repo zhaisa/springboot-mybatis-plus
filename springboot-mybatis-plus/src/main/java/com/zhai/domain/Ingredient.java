@@ -4,6 +4,9 @@ package com.zhai.domain;
 
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 
@@ -13,16 +16,17 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+//@RequiredArgsConstructor
+//@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @TableName(value="ingredient")
 public class Ingredient {
 	
 //	@JoinColumn(name = "id", referencedColumnName = "ingredient")
-	private final String id;
-	private final String name;
-	@Column(name="type")
-	private final Type type;
+	@TableId(type = IdType.ID_WORKER_STR )
+	private  String id;
+	private  String name;
+	@TableField
+	private  Type type;
 	
 	public static enum Type{
 		WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE;

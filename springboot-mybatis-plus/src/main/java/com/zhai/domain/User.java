@@ -3,12 +3,14 @@ package com.zhai.domain;
 import java.util.Arrays;
 import java.util.Collection;
 
-
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
@@ -24,17 +26,19 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(access=AccessLevel.PRIVATE,force=true)
 @RequiredArgsConstructor
 @TableName(value="users")
+@Scope("session")
 public class User implements UserDetails {
 	 private static final long serialVersionUID = 1L;
 	    
-		@IsKey // actable主键注解
-		@IsAutoIncrement // 自增
-		@Column
+//		@IsKey // actable主键注解
+//		@IsAutoIncrement // 自增
+//		@Column
 		@TableId(value = "id", type = IdType.AUTO)
 	    private Long id;
 	    
 	    private final String username;
 	    private final String password;
+	    @TableField(value = "fullname")
 	    private final String fullname;
 	    private final String street;
 	    private final String city;
