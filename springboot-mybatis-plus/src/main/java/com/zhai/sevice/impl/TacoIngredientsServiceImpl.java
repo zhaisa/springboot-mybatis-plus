@@ -19,19 +19,6 @@ import com.zhai.mapper.TacoIngredientsMapper;
 import com.zhai.sevice.TacoIngredientsService;
 @Service
 public class TacoIngredientsServiceImpl extends ServiceImpl<TacoIngredientsMapper, TacoIngredients>implements TacoIngredientsService {
-@Autowired
-TacoIngredientsMapper TacoIngredientsMapper;
-
-@Override
-public void saveTacoIngrendents() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void save(List<Ingredient> ingredients, long id) {
-//	TacoIngredientsMapper.save(ingredients, id);
-}
 
 
 	

@@ -14,5 +14,8 @@
          <result column="placedAt" property="placedAt"/>
     </resultMap>
 
-    
+    <insert id="insert" flushCache="true" parameterType="com.zhai.domain.Order">
+   		 insert into taco_order(deliveryName,deliveryStreet,deliveryCity,deliveryState,deliveryZip,ccNumber,ccExpiration,ccCVV,placedAt) 
+   		 values(#{deliveryName},#{deliveryStreet},#{deliveryCity},#{deliveryState},#{deliveryZip},#{ccNumber},#{ccExpiration},#{ccCVV},#{placedAt});
+    </insert>
 </mapper>

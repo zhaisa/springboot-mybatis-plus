@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,9 +77,11 @@ public class OrderController {
 		  if (errors.hasErrors()) {
 		        return "orderForm";
 		    }
-		  order.setUser(user);
+		  log.info("订单"+order);
+		
 		    
-		  OrderService.save(order);
+		  OrderService.insert(order);
+//		  order.setUser(user);
 		   sessionStatus.setComplete();
 	      log.info("Order submitted: " + order);
 	      return "redirect:/";

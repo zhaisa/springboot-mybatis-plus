@@ -4,6 +4,8 @@ package com.zhai.domain;
 
 
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -19,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 //@RequiredArgsConstructor
 //@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @TableName(value="ingredient")
-public class Ingredient {
+public class Ingredient implements Serializable {
 	
 //	@JoinColumn(name = "id", referencedColumnName = "ingredient")
 	@TableId(type = IdType.ID_WORKER_STR )

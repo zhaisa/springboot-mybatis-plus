@@ -24,8 +24,16 @@
 		<div class="grid">
 			<div class="ingredient-group" id="wraps">
 				<h3>Designate your wrap:</h3>
-				<div th:each="igredient:${ingredients}">
-					<input name="ingredients.id" type="checkbox"
+				<div th:each="ingredient:${ingredients11}">
+					<input th:name="ingredients[0].id" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+							<input th:name="ingredients[1].id" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+							<input th:name="ingredients[2].id" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+							<input th:name="ingredients[3].id" type="checkbox"
+						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
+							<input th:name="ingredients[4].id" type="checkbox"
 						th:value="${ingredient.id}" /> <span th:text="${ingredient.name}">INGREDIENT</span><br />
 				</div>
 			</div>

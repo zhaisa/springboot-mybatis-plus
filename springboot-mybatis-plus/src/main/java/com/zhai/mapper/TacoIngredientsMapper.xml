@@ -3,13 +3,7 @@
 <mapper namespace="com.zhai.mapper.TacoIngredientsMapper">
     <resultMap id="BaserResultMap" type="com.zhai.domain.TacoIngredients">
         <id column="taco_id" property="taco_id"/>
-        <result column="ingredients_id" property="ingredients_id"/>
-       
+        <result column="ingredients_id" property="ingredients_id"/>   
     </resultMap>
-<!-- <insert id="save">
-<foreach collection="">
-insert into taco_ingredients(taco_id,igredients_id) values(#{taco_id},#{igredients_id});
-</foreach>
 
-</insert> -->
 </mapper>

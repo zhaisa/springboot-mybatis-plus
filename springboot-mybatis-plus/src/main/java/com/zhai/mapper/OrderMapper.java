@@ -8,6 +8,6 @@ import com.zhai.domain.Order;
 @Component
 @Mapper
 public interface OrderMapper extends BaseMapper<Order>{
-
+int insert(Order order);
 }
  

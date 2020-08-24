@@ -7,7 +7,7 @@ import com.zhai.domain.Order;
 
 public interface OrderService extends IService<Order> {
 
-	
+	int insert(Order order);
 
 //List<Order> getOrderPage();
 

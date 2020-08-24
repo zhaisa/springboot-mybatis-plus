@@ -7,7 +7,5 @@ import com.zhai.domain.Ingredient;
 import com.zhai.domain.TacoIngredients;
 
 public interface TacoIngredientsService extends IService<TacoIngredients> {
-	void saveTacoIngrendents();
 
-	void save(List<Ingredient> ingredients,long id);
 }

@@ -3,14 +3,11 @@ package com.zhai.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -18,23 +15,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.additional.query.impl.LambdaQueryChainWrapper;
 import com.zhai.domain.Ingredient;
 import com.zhai.domain.Ingredient.Type;
 import com.zhai.domain.Order;
 import com.zhai.domain.Taco;
-import com.zhai.domain.User;
 import com.zhai.domain.TacoIngredients;
-import com.zhai.mapper.IngredientMapper;
+import com.zhai.domain.User;
 import com.zhai.mapper.OrderMapper;
-import com.zhai.sevice.*;
+import com.zhai.sevice.IngredientService;
+import com.zhai.sevice.TacoIngredientsService;
+import com.zhai.sevice.TacoService;
+import com.zhai.sevice.UserService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -68,6 +65,8 @@ public class DesignTacoController {
 	@Autowired
 	TacoIngredientsService TacoIngredientsService;
 
+	TacoIngredients tacoIngredients = new TacoIngredients();
+
 	@ModelAttribute(name = "order")
 	public Order order() {
 		return new Order();
@@ -85,7 +84,7 @@ public class DesignTacoController {
 		IngredientService.getBaseMapper().selectList(Wrappers.<Ingredient>lambdaQuery())
 				.forEach(i -> ingredients.add(i));
 		log.info("取值- - -   -  -   - >" + ingredients);
-
+		model.addAttribute("ingredients11", ingredients);
 		Type[] types = Ingredient.Type.values();
 		for (Type type : types) {
 			model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
@@ -95,7 +94,7 @@ public class DesignTacoController {
 		QueryWrapper<User> querywrapper = Wrappers.<User>query().eq("username", username);
 		User user = UserMapper.selectOne(querywrapper);
 		model.addAttribute("user", user);
-		return "design2";
+		return "design";
 	}
 
 	private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
@@ -103,26 +102,38 @@ public class DesignTacoController {
 	}
 
 	@PostMapping
-	public String processDesign(@Valid Taco design,List<Ingredient> ingredients, Errors errors, @ModelAttribute Order order) {
-		// Save the taco design...
-		// We'll do this in chapter 3
-//		if (errors.hasErrors()) {
-//			return "design2";
-//		}
-
+	public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order) {
 		log.info("Processing design: " + design);
-		log.info("Processing design: " + ingredients);
 		int saved = TacoMapper.insert(design);
 		QueryWrapper<Taco> querywrapper = Wrappers.<Taco>query();
 		querywrapper.eq("name", design.getName());
 		Long id = TacoMapper.selectOne(querywrapper).getId();
-		QueryWrapper<Ingredient> querywrapper1=Wrappers.query();
-		querywrapper1.eq("id", design.getIngredients());
-		List<Ingredient> list = IngredientService.list(querywrapper1);
-		UpdateWrapper<TacoIngredients> updatewrapper = Wrappers.update();
-		for (Ingredient ing : list) {
-			updatewrapper.set("ingredients_id", ing.getId()).set("taco_id", id);
+		QueryWrapper<Ingredient> querywrapper1 = Wrappers.query();
+
+		List<Ingredient> ingredients = design.getIngredients();
+		// UpdateWrapper<TacoIngredients> updatewrapper = Wrappers.update();
+		List<Ingredient> ingredients1 = new ArrayList<>();
+		for (Ingredient ing1 : ingredients) {
+			if (ing1.getId() != null) {
+				ingredients1.add(ing1);
+			}
 		}
+		for (Ingredient ing : ingredients1) {
+			String id1 = ing.getId();
+			if (id1.contains(",") && id1 != null) {
+				String[] listid = id1.split(",");
+				for (String id2 : listid) {
+					tacoIngredients.setIngredients_id(id2);
+					tacoIngredients.setTaco_id(id);
+					TacoIngredientsService.save(tacoIngredients);
+				}
+			}else {
+			tacoIngredients.setIngredients_id(ing.getId());
+			tacoIngredients.setTaco_id(id);
+			TacoIngredientsService.save(tacoIngredients);
+			}
+		}
+
 		order.addDesign(design);
 		// TacoService.s
 
