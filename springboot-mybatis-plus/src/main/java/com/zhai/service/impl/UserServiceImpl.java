@@ -1,4 +1,4 @@
-package com.zhai.sevice.impl;
+package com.zhai.service.impl;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhai.domain.User;
 import com.zhai.mapper.UserMapper;
-import com.zhai.sevice.UserService;
+import com.zhai.service.UserService;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService,UserDetailsService{
 @Autowired

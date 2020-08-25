@@ -1,4 +1,4 @@
-package com.zhai.sevice.impl;
+package com.zhai.service.impl;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhai.domain.Ingredient;
 import com.zhai.domain.TacoIngredients;
 import com.zhai.mapper.TacoIngredientsMapper;
-import com.zhai.sevice.TacoIngredientsService;
+import com.zhai.service.TacoIngredientsService;
 @Service
 public class TacoIngredientsServiceImpl extends ServiceImpl<TacoIngredientsMapper, TacoIngredients>implements TacoIngredientsService {
 

@@ -18,6 +18,7 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.IsAutoIncrement;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsKey;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,7 @@ public class User implements UserDetails {
 	    private final String state;
 	    private final String zip;
 	    private final String phoneNumber;
+	
 	 /*getAuthorities() 方法应该返回授予用户的权限集合。各种 isXXXexpired() 方法返回一个布尔值，指示用户的帐户是否已启用或过期。
 	  * 对于 User 实体，getAuthorities() 方法仅返回一个集合，该集合指示所有用户将被授予 ROLE_USER 权限。
 	  * 而且，至少现在，Taco Cloud 还不需要禁用用户，所以所有的 isXXXexpired() 方法都返回 true 来表示用户处于活动状态。
@@ -55,17 +57,17 @@ public class User implements UserDetails {
 		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USERS"));
 	}
 
-//	@Override
-//	public String getPassword() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//
-//	@Override
-//	public String getUsername() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.password;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.username;
+	}
 
 	@Override
 	public boolean isAccountNonExpired() {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zhai.mapper.UserMapper;
-import com.zhai.sevice.UserService;
+import com.zhai.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 

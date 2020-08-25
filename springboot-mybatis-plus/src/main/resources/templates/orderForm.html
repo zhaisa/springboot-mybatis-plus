@@ -9,6 +9,9 @@
   <body>
   
     <form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1>
+    <span th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}">NAME</span>
+    </h1>
       <h1>Order your taco creations!</h1>
       
       <img th:src="@{/images/TacoCloud.jpg}"/>

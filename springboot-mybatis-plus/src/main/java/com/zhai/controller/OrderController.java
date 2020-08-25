@@ -1,13 +1,12 @@
 package com.zhai.controller;
 
 
-import java.security.Principal;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zhai.domain.Order;
+import com.zhai.domain.Taco;
+import com.zhai.domain.TacoOrder;
 import com.zhai.domain.User;
-import com.zhai.sevice.*;
+import com.zhai.service.OrderService;
+import com.zhai.service.TacoOrderService;
+import com.zhai.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +41,10 @@ public class OrderController {
 	  UserService UserService;
 	  @Autowired
 	  OrderService OrderService;
+	  @Autowired
+	  TacoOrderService tacoorderservice;
+	  
+	  TacoOrder tacoorder=new TacoOrder();
 	  private OrderProps props;
 	  private int pageSize = 20;
 	    
@@ -74,15 +82,27 @@ public class OrderController {
 	  @PostMapping
 	  public String processOrder(@Valid Order order, Errors errors,SessionStatus sessionStatus,
 			  @AuthenticationPrincipal User user) {
-		  if (errors.hasErrors()) {
-		        return "orderForm";
-		    }
+//		  if (errors.hasErrors()) {
+//		        return "orderForm";
+//		    }
 		  log.info("订单"+order);
-		
-		    
+		  order.setUser(user);
+		   Long userid=user.getId();
+		   order.setUser_id(userid);
 		  OrderService.insert(order);
-//		  order.setUser(user);
-		   sessionStatus.setComplete();
+		QueryWrapper<Order> querywapper1=Wrappers.query();
+		querywapper1.eq("user_id", userid);
+		Order theorder = OrderService.getOne(querywapper1);
+		
+		List<Taco> tacos = order.getTacos();
+		for(Taco taco:tacos) {
+			Long id = taco.getId();
+			tacoorder.setTacos_id(id);
+			tacoorder.setOrder_id(theorder.getId());
+			tacoorderservice.saveTacoOrder(id, theorder.getId());
+		}
+		
+		  sessionStatus.setComplete();
 	      log.info("Order submitted: " + order);
 	      return "redirect:/";
 	  }

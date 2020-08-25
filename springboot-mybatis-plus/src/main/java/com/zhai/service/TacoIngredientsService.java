@@ -1,4 +1,4 @@
-package com.zhai.sevice;
+package com.zhai.service;
 
 import java.util.List;
 

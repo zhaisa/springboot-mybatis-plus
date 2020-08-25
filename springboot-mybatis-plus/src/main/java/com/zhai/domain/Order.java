@@ -11,6 +11,7 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -19,9 +20,13 @@ import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsAutoIncrement;
 import com.gitee.sunchenbin.mybatis.actable.annotation.IsKey;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName(value = "taco_order")
 public class Order implements Serializable {
 
@@ -55,7 +60,8 @@ public class Order implements Serializable {
 //	    @CreditCardNumber(message="Not a valid credit card number")
 	@TableField(value = "ccNumber")
 	private String ccNumber;
-
+	@TableField(value = "user_id")
+	private Long user_id;
 //	    @Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$",
 //	             message="Must be formatted MM/YY")
 	@TableField(value = "ccExpiration")
@@ -78,7 +84,9 @@ public class Order implements Serializable {
 	/*
 	 * 
 	 */
-
+public Order(Long user_id) {
+	this.user_id=user.getId();
+}
 	void placedAt() {
 		this.placedAt = new Date();
 	}

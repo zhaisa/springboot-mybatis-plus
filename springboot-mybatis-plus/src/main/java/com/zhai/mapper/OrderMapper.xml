@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhai.mapper.OrderMapper">
-    <resultMap id="BaserResultMap" type="com.zhai.domain.Order">
+<!--     <resultMap id="BaserResultMap" type="com.zhai.domain.Order">
         <id column="id" property="id"/>
         <result column="deliveryName" property="deliveryName"/>
         <result column="deliveryStreet" property="deliveryStreet"/>
@@ -11,11 +11,11 @@
         <result column="ccNumber" property="ccNumber"/>
         <result column="ccExpiration" property="ccExpiration"/>
         <result column="ccCVV" property="ccCVV"/>
-         <result column="placedAt" property="placedAt"/>
-    </resultMap>
+        <result column="placedAt" property="placedAt"/>
+        <association column="user_id" property="id" select="getuser"/>
+    </resultMap> -->
 
-    <insert id="insert" flushCache="true" parameterType="com.zhai.domain.Order">
-   		 insert into taco_order(deliveryName,deliveryStreet,deliveryCity,deliveryState,deliveryZip,ccNumber,ccExpiration,ccCVV,placedAt) 
-   		 values(#{deliveryName},#{deliveryStreet},#{deliveryCity},#{deliveryState},#{deliveryZip},#{ccNumber},#{ccExpiration},#{ccCVV},#{placedAt});
+    <insert id="insert" useGeneratedKeys="true" parameterType="com.zhai.domain.Order">
+   		 insert into taco_order(deliveryName,deliveryStreet,deliveryCity,deliveryState,deliveryZip,ccNumber,ccExpiration,ccCVV,placedAt,user_id) values(#{deliveryName},#{deliveryStreet},#{deliveryCity},#{deliveryState},#{deliveryZip},#{ccNumber},#{ccExpiration},#{ccCVV},#{placedAt},#{user_id});
     </insert>
 </mapper>
