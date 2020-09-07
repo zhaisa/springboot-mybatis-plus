@@ -91,15 +91,16 @@ public class OrderController {
 		   order.setUser_id(userid);
 		  OrderService.insert(order);
 		QueryWrapper<Order> querywapper1=Wrappers.query();
-		querywapper1.eq("user_id", userid);
-		Order theorder = OrderService.getOne(querywapper1);
+		querywapper1.eq("user_id", userid).orderByDesc("placedAt").last("limit 1");
+		
+		Order theorderid = OrderService.getBaseMapper().selectOne(querywapper1);
 		
 		List<Taco> tacos = order.getTacos();
 		for(Taco taco:tacos) {
 			Long id = taco.getId();
 			tacoorder.setTacos_id(id);
-			tacoorder.setOrder_id(theorder.getId());
-			tacoorderservice.saveTacoOrder(id, theorder.getId());
+			tacoorder.setOrder_id(theorderid.getId());
+			tacoorderservice.saveTacoOrder(id, theorderid.getId());
 		}
 		
 		  sessionStatus.setComplete();

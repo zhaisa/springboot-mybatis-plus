@@ -81,12 +81,11 @@ public class Order implements Serializable {
 	public void addDesign(Taco design) {
 		this.tacos.add(design);
 	}
-	/*
-	 * 
-	 */
-public Order(Long user_id) {
-	this.user_id=user.getId();
-}
+
+	public Order(long user_id) {
+		this.user_id = user.getId();
+	}
+
 	void placedAt() {
 		this.placedAt = new Date();
 	}

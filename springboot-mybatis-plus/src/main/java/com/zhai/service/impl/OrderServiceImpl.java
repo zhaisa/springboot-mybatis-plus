@@ -28,6 +28,11 @@ OrderMapper ordermapper;
 	
 		return ordermapper.insert(order);
 	}
+//	@Override
+//	public long findOneUserId(long user_id) {
+//		// TODO Auto-generated method stub
+//		return ordermapper.findOneUserId(user_id);
+//	}
 
 
 
